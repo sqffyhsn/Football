@@ -1,0 +1,78 @@
+# Central configuration. Seasons use football-data.co.uk codes: "2425" = 2024/25.
+
+data:
+  base_url: "https://www.football-data.co.uk/mmz4281/{season}/{div}.csv"
+  fixtures_url: "https://www.football-data.co.uk/fixtures.csv"
+  raw_dir: data/raw
+  processed_path: data/processed/matches.parquet
+  cleaning_report_path: reports/cleaning_report.json
+  # Kickoff times in football-data.co.uk files. MUST be verified against known
+  # fixtures once data is downloadable (see scripts/verify_timezone.py);
+  # `verified: false` makes the forward-testing scripts warn loudly.
+  kickoff_timezone: "Europe/London"
+  kickoff_timezone_verified: false
+
+# Toggle leagues on/off here. Everything downstream reads only enabled leagues.
+leagues:
+  E0:  {name: "England Premier League", enabled: true}
+  E1:  {name: "England Championship", enabled: true}
+  E2:  {name: "England League One", enabled: true}
+  E3:  {name: "England League Two", enabled: true}
+  SC0: {name: "Scotland Premiership", enabled: true}
+  SP1: {name: "Spain La Liga", enabled: true}
+  D1:  {name: "Germany Bundesliga", enabled: true}
+  I1:  {name: "Italy Serie A", enabled: true}
+  F1:  {name: "France Ligue 1", enabled: true}
+  N1:  {name: "Netherlands Eredivisie", enabled: true}
+  B1:  {name: "Belgium Pro League", enabled: true}
+  P1:  {name: "Portugal Primeira Liga", enabled: true}
+  T1:  {name: "Turkey Super Lig", enabled: true}
+  G1:  {name: "Greece Super League", enabled: true}
+
+seasons:
+  history: ["1617", "1718", "1819", "1920", "2021", "2122", "2223", "2324", "2425", "2526"]
+  current: "2627"          # in progress: live features only, never in the backtest
+
+splits:
+  # Walk-forward CV: for each season in cv_validation, train on all earlier dev seasons.
+  cv_validation: ["2021", "2122", "2223", "2324"]
+  calibration: "2425"      # calibrator fitted here (model trained on seasons before it)
+  test: "2526"             # touched exactly once, by scripts/evaluate_test.py
+
+features:
+  windows: [5, 10]
+  min_periods: 3
+  poisson_shrinkage_matches: 10   # pseudo-matches pulling team ratios toward 1
+
+models:
+  random_state: 42
+  logreg:
+    C_grid: [0.01, 0.1, 1.0]
+  lightgbm:
+    grid:
+      - {num_leaves: 7,  learning_rate: 0.03, min_child_samples: 200}
+      - {num_leaves: 15, learning_rate: 0.03, min_child_samples: 200}
+      - {num_leaves: 7,  learning_rate: 0.05, min_child_samples: 500}
+    n_estimators: 2000
+    early_stopping_rounds: 100
+    subsample: 0.8
+    colsample_bytree: 0.8
+
+evaluation:
+  ece_bins: 10
+  bootstrap_samples: 1000
+  reports_dir: reports
+
+betting:
+  # Real FH O/U 0.5 odds are NOT in football-data.co.uk. Unless real odds are
+  # supplied, the simulation prices bets at synthetic odds = 1 / (p_market_derived
+  # * (1 + assumed_margin)) and is labelled HYPOTHETICAL.
+  assumed_margin: 0.06
+  edge_thresholds: [0.02, 0.04, 0.06]
+  stake: 1.0
+
+live:
+  log_path: predictions/log.csv
+  manual_odds_path: predictions/manual_fh_odds.csv
+  models_dir: models
+  reports_dir: reports/live

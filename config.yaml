@@ -1,8 +1,8 @@
 # Central configuration. Seasons use football-data.co.uk codes: "2425" = 2024/25.
 
 data:
-  base_url: "https://www.football-data.co.uk/mmz4281/{season}/{div}.csv"
-  fixtures_url: "https://www.football-data.co.uk/fixtures.csv"
+  base_url: "https://football-data.co.uk/mmz4281/{season}/{div}.csv"
+  fixtures_url: "https://football-data.co.uk/fixtures.csv"
   raw_dir: data/raw
   processed_path: data/processed/matches.parquet
   cleaning_report_path: reports/cleaning_report.json

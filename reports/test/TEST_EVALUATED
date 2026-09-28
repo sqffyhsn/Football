@@ -1,0 +1,16 @@
+{
+  "evaluated_utc": "2026-09-28T09:33:45+00:00",
+  "git_commit": "8618ed1ac68004d22d284b1c792ea9e8a0deed18",
+  "bundle_versions": {
+    "LogReg (form only)": "backtest-20260928T084502Z",
+    "LightGBM (form only)": "backtest-20260928T084501Z",
+    "LogReg (form+odds)": "backtest-20260928T084503Z",
+    "LightGBM (form+odds)": "backtest-20260928T084501Z"
+  },
+  "primary_vs_market": {
+    "delta": 0.0014452328042671159,
+    "ci_low": -0.0005931494053208585,
+    "ci_high": 0.003964168603817444
+  },
+  "interpretation": "Cannot confirm backtest edge. Forward testing is the tiebreaker. Do not adjust the model."
+}

@@ -1,0 +1,294 @@
+{
+  "generated_utc": "2026-09-28T09:33:45+00:00",
+  "test_season": "2526",
+  "git_commit": "8618ed1ac68004d22d284b1c792ea9e8a0deed18",
+  "bundle_versions": {
+    "LogReg (form only)": "backtest-20260928T084502Z",
+    "LightGBM (form only)": "backtest-20260928T084501Z",
+    "LogReg (form+odds)": "backtest-20260928T084503Z",
+    "LightGBM (form+odds)": "backtest-20260928T084501Z"
+  },
+  "primary_model": "LogReg (form+odds)",
+  "primary_vs_market": {
+    "model": "LogReg (form+odds)",
+    "reference": "Market-derived (O/U 2.5)",
+    "delta": 0.0014452328042671159,
+    "ci_low": -0.0005931494053208585,
+    "ci_high": 0.003964168603817444,
+    "p_a_better": 0.098,
+    "verdict": "no significant difference (95% CI spans 0)"
+  },
+  "interpretation": "Cannot confirm backtest edge. Forward testing is the tiebreaker. Do not adjust the model.",
+  "backtest_primary_vs_market": {
+    "model": "LogReg (form+odds)",
+    "reference": "Market-derived (O/U 2.5)",
+    "delta": -0.0006302316164592536,
+    "ci_low": -0.0011634948527159655,
+    "ci_high": -0.00011522885090257135,
+    "p_a_better": 0.99,
+    "verdict": "BEATS reference (95% CI entirely below 0)"
+  },
+  "metrics_all_rows": {
+    "Baseline A: league rate": {
+      "n": 5101.0,
+      "log_loss": 0.6022378542579132,
+      "brier": 0.2060372229813934,
+      "auc": 0.5199911949053313,
+      "ece": 0.020779634352722138,
+      "mean_p": 0.7037144866838699,
+      "base_rate": 0.7086845716526171
+    },
+    "Baseline B: FH Poisson": {
+      "n": 5101.0,
+      "log_loss": 0.6124707310573048,
+      "brier": 0.21025963212972618,
+      "auc": 0.5245877149383178,
+      "ece": 0.05212552464716825,
+      "mean_p": 0.690083810511032,
+      "base_rate": 0.7086845716526171
+    },
+    "LightGBM (form only)": {
+      "n": 5101.0,
+      "log_loss": 0.603662016828882,
+      "brier": 0.20667547074396925,
+      "auc": 0.5338571713121452,
+      "ece": 0.025641787300524924,
+      "mean_p": 0.7040110433637062,
+      "base_rate": 0.7086845716526171
+    },
+    "LightGBM (form+odds)": {
+      "n": 5101.0,
+      "log_loss": 0.5996152600864064,
+      "brier": 0.20501525237081356,
+      "auc": 0.5614603054046156,
+      "ece": 0.021470786549684245,
+      "mean_p": 0.6973064909856237,
+      "base_rate": 0.7086845716526171
+    },
+    "LogReg (form only)": {
+      "n": 5101.0,
+      "log_loss": 0.6001865628242666,
+      "brier": 0.20511647375234113,
+      "auc": 0.551008676648256,
+      "ece": 0.009185362153369833,
+      "mean_p": 0.7078502217555825,
+      "base_rate": 0.7086845716526171
+    },
+    "LogReg (form+odds)": {
+      "n": 5101.0,
+      "log_loss": 0.5991284240076791,
+      "brier": 0.20457242530191255,
+      "auc": 0.5637492577100425,
+      "ece": 0.014014452173759892,
+      "mean_p": 0.7101653877354545,
+      "base_rate": 0.7086845716526171
+    }
+  },
+  "metrics_odds_rows": {
+    "Market-derived (O/U 2.5)": {
+      "n": 5101.0,
+      "log_loss": 0.597683191203412,
+      "brier": 0.20417439745078675,
+      "auc": 0.5636080597331665,
+      "ece": 0.01462333406763566,
+      "mean_p": 0.7066815133999388,
+      "base_rate": 0.7086845716526171
+    },
+    "Baseline A: league rate": {
+      "n": 5101.0,
+      "log_loss": 0.6022378542579132,
+      "brier": 0.2060372229813934,
+      "auc": 0.5199911949053313,
+      "ece": 0.020779634352722138,
+      "mean_p": 0.7037144866838699,
+      "base_rate": 0.7086845716526171
+    },
+    "Baseline B: FH Poisson": {
+      "n": 5101.0,
+      "log_loss": 0.6124707310573048,
+      "brier": 0.21025963212972618,
+      "auc": 0.5245877149383178,
+      "ece": 0.05212552464716825,
+      "mean_p": 0.690083810511032,
+      "base_rate": 0.7086845716526171
+    },
+    "LightGBM (form only)": {
+      "n": 5101.0,
+      "log_loss": 0.603662016828882,
+      "brier": 0.20667547074396925,
+      "auc": 0.5338571713121452,
+      "ece": 0.025641787300524924,
+      "mean_p": 0.7040110433637062,
+      "base_rate": 0.7086845716526171
+    },
+    "LightGBM (form+odds)": {
+      "n": 5101.0,
+      "log_loss": 0.5996152600864064,
+      "brier": 0.20501525237081356,
+      "auc": 0.5614603054046156,
+      "ece": 0.021470786549684245,
+      "mean_p": 0.6973064909856237,
+      "base_rate": 0.7086845716526171
+    },
+    "LogReg (form only)": {
+      "n": 5101.0,
+      "log_loss": 0.6001865628242666,
+      "brier": 0.20511647375234113,
+      "auc": 0.551008676648256,
+      "ece": 0.009185362153369833,
+      "mean_p": 0.7078502217555825,
+      "base_rate": 0.7086845716526171
+    },
+    "LogReg (form+odds)": {
+      "n": 5101.0,
+      "log_loss": 0.5991284240076791,
+      "brier": 0.20457242530191255,
+      "auc": 0.5637492577100425,
+      "ece": 0.014014452173759892,
+      "mean_p": 0.7101653877354545,
+      "base_rate": 0.7086845716526171
+    }
+  },
+  "comparisons_vs_baselines": [
+    {
+      "model": "LightGBM (form only)",
+      "reference": "Baseline A: league rate",
+      "delta": 0.0014241625709687789,
+      "ci_low": -0.0019408347335450242,
+      "ci_high": 0.0045328191270210426,
+      "p_a_better": 0.187,
+      "verdict": "no significant difference (95% CI spans 0)"
+    },
+    {
+      "model": "LightGBM (form only)",
+      "reference": "Baseline B: FH Poisson",
+      "delta": -0.008808714228422776,
+      "ci_low": -0.012746709543926973,
+      "ci_high": -0.0046511227152060365,
+      "p_a_better": 1.0,
+      "verdict": "BEATS reference (95% CI entirely below 0)"
+    },
+    {
+      "model": "LightGBM (form+odds)",
+      "reference": "Baseline A: league rate",
+      "delta": -0.002622594171506787,
+      "ci_low": -0.006293676733395643,
+      "ci_high": 0.0006582382462143871,
+      "p_a_better": 0.94,
+      "verdict": "no significant difference (95% CI spans 0)"
+    },
+    {
+      "model": "LightGBM (form+odds)",
+      "reference": "Baseline B: FH Poisson",
+      "delta": -0.012855470970898342,
+      "ci_low": -0.01745431657642771,
+      "ci_high": -0.008326108525972016,
+      "p_a_better": 1.0,
+      "verdict": "BEATS reference (95% CI entirely below 0)"
+    },
+    {
+      "model": "LogReg (form only)",
+      "reference": "Baseline A: league rate",
+      "delta": -0.0020512914336465737,
+      "ci_low": -0.004206350338222425,
+      "ci_high": 0.00048727879419151464,
+      "p_a_better": 0.942,
+      "verdict": "no significant difference (95% CI spans 0)"
+    },
+    {
+      "model": "LogReg (form only)",
+      "reference": "Baseline B: FH Poisson",
+      "delta": -0.012284168233038129,
+      "ci_low": -0.016320863143236556,
+      "ci_high": -0.008352888264938475,
+      "p_a_better": 1.0,
+      "verdict": "BEATS reference (95% CI entirely below 0)"
+    },
+    {
+      "model": "LogReg (form+odds)",
+      "reference": "Baseline A: league rate",
+      "delta": -0.0031094302502341353,
+      "ci_low": -0.006734874005159733,
+      "ci_high": 0.00040621276933201496,
+      "p_a_better": 0.957,
+      "verdict": "no significant difference (95% CI spans 0)"
+    },
+    {
+      "model": "LogReg (form+odds)",
+      "reference": "Baseline B: FH Poisson",
+      "delta": -0.01334230704962569,
+      "ci_low": -0.018705130322890298,
+      "ci_high": -0.008637914225177781,
+      "p_a_better": 1.0,
+      "verdict": "BEATS reference (95% CI entirely below 0)"
+    }
+  ],
+  "comparisons_vs_market": [
+    {
+      "model": "LightGBM (form only)",
+      "reference": "Market-derived (O/U 2.5)",
+      "delta": 0.00597882562547003,
+      "ci_low": 0.002938597036969709,
+      "ci_high": 0.009032199298853263,
+      "p_a_better": 0.0,
+      "verdict": "WORSE than reference (95% CI entirely above 0)"
+    },
+    {
+      "model": "LightGBM (form+odds)",
+      "reference": "Market-derived (O/U 2.5)",
+      "delta": 0.0019320688829944643,
+      "ci_low": 1.1974302077844036e-05,
+      "ci_high": 0.003773559188843683,
+      "p_a_better": 0.025,
+      "verdict": "WORSE than reference (95% CI entirely above 0)"
+    },
+    {
+      "model": "LogReg (form only)",
+      "reference": "Market-derived (O/U 2.5)",
+      "delta": 0.0025033716208546775,
+      "ci_low": 0.0003381308575175102,
+      "ci_high": 0.0052033965957375946,
+      "p_a_better": 0.014,
+      "verdict": "WORSE than reference (95% CI entirely above 0)"
+    },
+    {
+      "model": "LogReg (form+odds)",
+      "reference": "Market-derived (O/U 2.5)",
+      "delta": 0.0014452328042671159,
+      "ci_low": -0.0005931494053208585,
+      "ci_high": 0.003964168603817444,
+      "p_a_better": 0.098,
+      "verdict": "no significant difference (95% CI spans 0)"
+    }
+  ],
+  "raw_vs_calibrated": {
+    "LightGBM (form only)": {
+      "raw_log_loss": 0.6006223031569777,
+      "calibrated_log_loss": 0.603662016828882,
+      "raw_ece": 0.015277502931148034,
+      "calibrated_ece": 0.025641787300524924,
+      "method": "isotonic"
+    },
+    "LightGBM (form+odds)": {
+      "raw_log_loss": 0.5985401813964901,
+      "calibrated_log_loss": 0.5996152600864064,
+      "raw_ece": 0.01480583262979339,
+      "calibrated_ece": 0.021470786549684245,
+      "method": "platt"
+    },
+    "LogReg (form only)": {
+      "raw_log_loss": 0.6001865628242666,
+      "calibrated_log_loss": 0.6001865628242666,
+      "raw_ece": 0.009185362153369833,
+      "calibrated_ece": 0.009185362153369833,
+      "method": "none"
+    },
+    "LogReg (form+odds)": {
+      "raw_log_loss": 0.5984966551119877,
+      "calibrated_log_loss": 0.5991284240076791,
+      "raw_ece": 0.009820755876550952,
+      "calibrated_ece": 0.014014452173759892,
+      "method": "platt"
+    }
+  }
+}

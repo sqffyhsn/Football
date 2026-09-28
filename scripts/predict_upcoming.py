@@ -42,6 +42,7 @@ def main():
                for label, m in manifest["models"].items()}
 
     fixtures = get_fixture_provider(cfg).get_fixtures()
+    already_played = int(fixtures["match_id"].isin(set(history["match_id"])).sum())
     rows = prediction_rows(cfg, history, fixtures, bundles, primary)
     log_path = path(cfg["live"]["log_path"])
     log_df = load_log(log_path)
@@ -57,9 +58,12 @@ def main():
     for w in getattr(odds_provider, "warnings", []):
         print(w)
     save_log(log_df, log_path)
-    print(f"{now.isoformat()}: fixtures={len(fixtures)} added={stats['added']} "
+    print(f"{now.isoformat()}: fixtures={len(fixtures)} already_played={already_played} added={stats['added']} "
           f"skipped_started={stats['skipped_started']} already_logged={stats['skipped_already_logged']} "
           f"fh_odds_notes={len(notes)} -> {log_path}")
+    if stats["added"] == 0:
+        print("No new upcoming fixtures in the enabled leagues. football-data.co.uk usually publishes the next "
+              "round midweek; re-run then (and again before each kick-off window).")
 
 
 if __name__ == "__main__":

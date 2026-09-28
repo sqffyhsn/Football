@@ -7,6 +7,7 @@ Predicts calibrated P(≥1 first-half goal) for football matches. Data comes fro
 - `src/fh/features/`: target, team form, league base rates, odds. `build.py` assembles everything.
 - `src/fh/models/`: splits, baselines, LR/LightGBM training, calibration, registry, and `pipeline.py` for the CV and bundle fitting.
 - `src/fh/evaluation/`: metrics, plots, betting sim, and report tables.
+- `src/fh/live/`: prediction log, fixture predictions, settlement and CLV, and the live report with the convergence tracker. `src/fh/data/odds_providers.py` holds the FH odds providers, selected by `ODDS_PROVIDER`.
 - `scripts/`: entry points. `config.yaml` holds all leagues, seasons, splits and params.
 
 ## Hard rules
@@ -16,6 +17,8 @@ Predicts calibrated P(≥1 first-half goal) for football matches. Data comes fro
 - **The test season is evaluated once**, by `scripts/evaluate_test.py`, and only after the user has reviewed the backtest. `scripts/backtest.py` drops it before modelling. Never tune anything on test results.
 - **No real FH O/U 0.5 odds exist in football-data.** The market benchmark is *derived* from O/U 2.5. Betting results on synthetic odds are labelled HYPOTHETICAL. Never pool REAL and HYPOTHETICAL bets in one ROI.
 - **Report honestly.** Verdicts in the reports are computed from bootstrap CIs. Don't rephrase them more favourably.
+- **The test season has been evaluated.** `reports/test/TEST_EVALUATED` exists. Never delete it or re-run the evaluation. The primary model (`live.primary_model`) and the candidate grid stay frozen until forward testing says otherwise.
+- **Forward log.** `predictions/log.csv` is append-only for predictions: the first prediction wins, and nothing is added at or after kick-off. Only settlement fields and empty FH-odds fields may be filled in later.
 - **Synthetic data** (`fh.data.synthetic`) is for tests and `--synthetic` smoke runs only. Its output goes to the gitignored `reports/_scratch/`.
 
 ## Conventions

@@ -23,7 +23,43 @@ python scripts/backtest.py           # walk-forward CV + calibration -> reports/
 ```
 `python scripts/backtest.py --synthetic` runs the whole pipeline on synthetic data. It writes to `reports/_scratch/`, and those numbers are meaningless.
 
-Coming after the backtest review: `evaluate_test.py`, which evaluates the held-out season once, followed by `train_live_model.py`, `predict_upcoming.py` and `settle_results.py`.
+```bash
+python scripts/evaluate_test.py      # ONE-TIME held-out season evaluation -> reports/test/ (already run; refuses to re-run)
+```
+
+## Results so far
+- **Backtest** (walk-forward CV, 2020/21–2023/24, 20,887 matches), in `reports/backtest/`:
+  - every model beats the baselines
+  - the primary model, LogReg (form+odds), beats the market-derived benchmark by Δ log loss −0.00063, with 95% CI [−0.00116, −0.00012]. That figure is slightly optimistic because of model selection.
+- **Test season 2025/26** (5,101 matches, evaluated once), in `reports/test/`: Δ = +0.00145, with 95% CI [−0.00059, +0.00396]. The CI spans 0. The pre-written interpretation reads: *"Cannot confirm backtest edge. Forward testing is the tiebreaker. Do not adjust the model."*
+
+## Forward testing (paper trading)
+```bash
+python scripts/train_live_model.py   # once per season: refit the same specs, calibrate on the last full season
+python scripts/predict_upcoming.py   # before each round: log predictions for fixtures that haven't kicked off
+python scripts/settle_results.py     # after matches: fill results + closing odds, refresh reports/live/
+```
+- **Model version:** `predictions/models_live_manifest.json` records the live model version and the backtest and test reference deltas.
+- **`predictions/log.csv` is committed.**
+  - The first prediction for a fixture is final and is never overwritten.
+  - Fixtures that have already kicked off are never added.
+  - Kick-off times in football-data.co.uk are UK time. This was verified with `scripts/verify_timezone.py` and converted to UTC.
+- **Real first-half odds (optional):**
+  - Set `ODDS_PROVIDER=manual_csv` in `.env`.
+  - Add rows to `predictions/manual_fh_odds.csv`: `div,date,home,away,fh_o05_odds,fh_u05_odds,source,ts_utc`, plus `fh_o05_close_odds,fh_u05_close_odds` for REAL CLV. `date` is YYYY-MM-DD and team names use football-data spelling.
+  - Rows are validated when loaded. Odds must be > 1, 1/over + 1/under must fall in [1.00, 1.20], and `source` and `ts_utc` are required. Any rejected row is printed with its reason.
+  - Pre-match odds stamped at or after kick-off are rejected.
+- **Live report** (`reports/live/live_report.md`):
+  - sample size and per-league tables
+  - metrics with bootstrap CIs
+  - CLV, in two separate sections: DERIVED/INDIRECT, and REAL when real FH odds exist
+  - betting, with REAL and HYPOTHETICAL results reported separately and never pooled
+  - a power calculation
+- **Convergence note** (top of the live report, plus `convergence.png` and `convergence.csv`): tracks the running log-loss difference of the primary model against the market benchmark.
+  - Below 200 settled matches it shows the running Δ only.
+  - From 200 matches it adds a 95% CI band and a status line: **HOLDING** (CI below 0), **INCONCLUSIVE** (CI covers both 0 and the backtest Δ), or **INCONSISTENT WITH BACKTEST** (CI lies entirely above the backtest Δ).
+  - It also shows how many matches are still needed. Resolving an edge the size of the backtest's at 80% power takes about 29,500 settled matches, roughly six seasons across all 14 leagues. Expect "INCONCLUSIVE" for a long time.
+  - `convergence_history.csv` keeps one row per settle run.
 
 ## Configuration
 Everything is in `config.yaml`:

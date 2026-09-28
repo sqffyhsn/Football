@@ -1,0 +1,95 @@
+{
+  "generated_utc": "2026-09-28T09:38:57+00:00",
+  "primary_model": "LogReg (form+odds)",
+  "primary_version": "live-20260928T093856Z",
+  "models": {
+    "LogReg (form only)": {
+      "version": "live-20260928T093855Z",
+      "fit_seasons": [
+        "1617",
+        "1718",
+        "1819",
+        "1920",
+        "2021",
+        "2122",
+        "2223",
+        "2324"
+      ],
+      "stop_season": "2425",
+      "calibration_season": "2526",
+      "calibration_method": "none",
+      "market_fh_share_s": 0.45034205766765745,
+      "spec_name": "logreg[form;N=10;C=0.01]"
+    },
+    "LightGBM (form only)": {
+      "version": "live-20260928T093855Z",
+      "fit_seasons": [
+        "1617",
+        "1718",
+        "1819",
+        "1920",
+        "2021",
+        "2122",
+        "2223",
+        "2324"
+      ],
+      "stop_season": "2425",
+      "calibration_season": "2526",
+      "calibration_method": "none",
+      "market_fh_share_s": 0.45034205766765745,
+      "spec_name": "lightgbm[form;N=10;learning_rate=0.03,min_child_samples=200,num_leaves=7]"
+    },
+    "LogReg (form+odds)": {
+      "version": "live-20260928T093856Z",
+      "fit_seasons": [
+        "1617",
+        "1718",
+        "1819",
+        "1920",
+        "2021",
+        "2122",
+        "2223",
+        "2324"
+      ],
+      "stop_season": "2425",
+      "calibration_season": "2526",
+      "calibration_method": "none",
+      "market_fh_share_s": 0.45034205766765745,
+      "spec_name": "logreg[odds;N=10;C=0.01]"
+    },
+    "LightGBM (form+odds)": {
+      "version": "live-20260928T093857Z",
+      "fit_seasons": [
+        "1617",
+        "1718",
+        "1819",
+        "1920",
+        "2021",
+        "2122",
+        "2223",
+        "2324"
+      ],
+      "stop_season": "2425",
+      "calibration_season": "2526",
+      "calibration_method": "none",
+      "market_fh_share_s": 0.45034205766765745,
+      "spec_name": "lightgbm[odds;N=10;learning_rate=0.03,min_child_samples=200,num_leaves=7]"
+    }
+  },
+  "reference": {
+    "backtest_primary_vs_market": {
+      "delta": -0.0006302316164592536,
+      "ci_low": -0.0011634948527159655,
+      "ci_high": -0.00011522885090257135,
+      "n": 20887
+    },
+    "test_primary_vs_market": {
+      "delta": 0.0014452328042671159,
+      "ci_low": -0.0005931494053208585,
+      "ci_high": 0.003964168603817444
+    },
+    "test_interpretation": "Cannot confirm backtest edge. Forward testing is the tiebreaker. Do not adjust the model.",
+    "sigma_loss_diff_per_match": 0.03864839328812303,
+    "matches_to_resolve_backtest_edge_80pct": 29517
+  }
+}

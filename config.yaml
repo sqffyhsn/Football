@@ -6,11 +6,12 @@ data:
   raw_dir: data/raw
   processed_path: data/processed/matches.parquet
   cleaning_report_path: reports/cleaning_report.json
-  # Kickoff times in football-data.co.uk files. MUST be verified against known
-  # fixtures once data is downloadable (see scripts/verify_timezone.py);
-  # `verified: false` makes the forward-testing scripts warn loudly.
+  # Kickoff times in football-data.co.uk files are UK time. Verified 2026-09-28
+  # by scripts/verify_timezone.py (see reports/timezone_check.md): D1 Saturday
+  # slot listed 14:30 (15:30 CET), I1 19:45 (20:45 CET), Clasico 26/10/2024 20:00
+  # (21:00 CEST). Re-run the script if the source changes.
   kickoff_timezone: "Europe/London"
-  kickoff_timezone_verified: false
+  kickoff_timezone_verified: true
 
 # Toggle leagues on/off here. Everything downstream reads only enabled leagues.
 leagues:

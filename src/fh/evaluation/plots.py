@@ -31,15 +31,15 @@ def reliability_plot(y, preds: dict[str, np.ndarray], path: Path, title: str, n_
     """preds: label -> probabilities. Colour is bound to the label order given."""
     fig, ax = plt.subplots(figsize=(6.4, 6), facecolor=SURFACE)
     _style(ax)
-    lo = min(min(np.min(p) for p in preds.values()), float(np.mean(y))) - 0.05
-    lo = max(0.0, lo)
-    ax.plot([lo, 1], [lo, 1], color=INK2, linewidth=1, linestyle="--", label="perfect calibration")
-    for i, (label, p) in enumerate(preds.items()):
-        b = reliability_bins(y, p, n_bins)
+    bins = {label: reliability_bins(y, p, n_bins) for label, p in preds.items()}
+    vals = np.concatenate([np.r_[b["p_mean"], b["y_mean"]] for b in bins.values()])
+    lo, hi = max(0.0, vals.min() - 0.03), min(1.0, vals.max() + 0.03)
+    ax.plot([lo, hi], [lo, hi], color=INK2, linewidth=1, linestyle="--", label="perfect calibration")
+    for i, (label, b) in enumerate(bins.items()):
         ax.plot(b["p_mean"], b["y_mean"], color=SERIES[i % len(SERIES)], linewidth=2,
                 marker="o", markersize=5, markeredgecolor=SURFACE, markeredgewidth=1.5, label=label)
-    ax.set_xlim(lo, 1)
-    ax.set_ylim(lo, 1)
+    ax.set_xlim(lo, hi)
+    ax.set_ylim(lo, hi)
     ax.set_xlabel("Mean predicted P(FH goal)", color=INK)
     ax.set_ylabel("Observed frequency", color=INK)
     ax.set_title(title, color=INK, fontsize=11, loc="left")

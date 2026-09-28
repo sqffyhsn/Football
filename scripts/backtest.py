@@ -196,6 +196,10 @@ def main():
         "![pnl](pnl_cv_hypothetical.png)" if curves else "_No bets placed at the lowest threshold._",
         "",
         "## Verdict (computed from the numbers above)",
+        f"Caveat: the four models were each selected as the best of {len(specs) // 4} candidates on these same CV "
+        "folds, so their CV scores (and deltas) are slightly optimistic. Baselines and the market benchmark "
+        "involve no selection. The untouched test season is the honest check.",
+        "",
         *[f"- {r.model} vs {r.reference}: Δ={r.delta:+.5f} [{r.ci_low:+.5f}, {r.ci_high:+.5f}] → {r.verdict}"
           for r in pd.concat([cmp_all, cmp_mk]).itertuples()],
     ]

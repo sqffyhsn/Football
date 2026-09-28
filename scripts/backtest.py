@@ -116,7 +116,7 @@ def main():
     cal_rows = []
     for k in model_labels:
         bundle, info = fit_bundle(feats, cfg, chosen[k], cal_fold, prefix="backtest")
-        registry.save(bundle, bundles_dir / k.replace(" ", "_").replace("(", "").replace(")", "").replace("+", "_"))
+        registry.save(bundle, bundles_dir / registry.slug(k))
         yc = info["cal"]["target"].to_numpy()
         cal_rows.append({"model": k, "raw_logloss_on_cal_season": metrics_table(yc, {k: info["p_raw"]}).loc[k, "log_loss"],
                          "chosen_calibration": bundle.meta["calibration_method"],

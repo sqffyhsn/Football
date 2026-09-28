@@ -25,6 +25,11 @@ class Bundle:
         return self.meta["version"]
 
 
+def slug(label: str) -> str:
+    """Directory name for a model label, e.g. 'LogReg (form+odds)' -> 'LogReg_form_odds'."""
+    return label.replace(" ", "_").replace("(", "").replace(")", "").replace("+", "_")
+
+
 def new_version(prefix: str) -> str:
     return f"{prefix}-{datetime.now(timezone.utc):%Y%m%dT%H%M%SZ}"
 

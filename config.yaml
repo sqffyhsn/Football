@@ -73,6 +73,8 @@ betting:
   stake: 1.0
 
 live:
+  # Pre-registered from the backtest (best CV log loss vs market) before the test season was seen.
+  primary_model: "LogReg (form+odds)"
   log_path: predictions/log.csv
   manual_odds_path: predictions/manual_fh_odds.csv
   models_dir: models

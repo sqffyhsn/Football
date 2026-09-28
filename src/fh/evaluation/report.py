@@ -31,6 +31,27 @@ def verdict(d: dict) -> str:
     return "no significant difference (95% CI spans 0)"
 
 
+TEST_INTERPRETATION = {
+    "below": "Consistent with backtest. Proceed to forward testing. Note this is still one season.",
+    "spans": "Cannot confirm backtest edge. Forward testing is the tiebreaker. Do not adjust the model.",
+    "above": "Backtest edge was likely selection noise. Forward testing continues but lower your priors significantly.",
+}
+
+
+def ci_position(d: dict) -> str:
+    """Where a 95% CI of a delta sits relative to 0: 'below', 'spans' or 'above'."""
+    if d["ci_high"] < 0:
+        return "below"
+    if d["ci_low"] > 0:
+        return "above"
+    return "spans"
+
+
+def test_interpretation(d: dict) -> str:
+    """Pre-written interpretation of the primary test comparison, chosen only by the CI."""
+    return TEST_INTERPRETATION[ci_position(d)]
+
+
 def per_league(df: pd.DataFrame, preds: dict[str, np.ndarray], models: list[str]) -> pd.DataFrame:
     out = []
     for div, idx in df.groupby("div").indices.items():
